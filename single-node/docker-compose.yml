@@ -4,8 +4,7 @@ services:
   wazuh.manager:
     image: wazuh/wazuh-manager:4.14.6
     hostname: wazuh.manager
-    restart: always
-
+    restart: unless-stopped
     ulimits:
       memlock:
         soft: -1
