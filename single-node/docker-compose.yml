@@ -90,6 +90,23 @@ services:
     expose:
       - "5601"
 
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=a5xzv0zwmdfhdw0k4ivz88c0"
+
+      - "traefik.http.routers.wazuh-http.rule=Host(`wazuh.ml46.fr`)"
+      - "traefik.http.routers.wazuh-http.entrypoints=http"
+      - "traefik.http.routers.wazuh-http.middlewares=redirect-to-https"
+
+      - "traefik.http.routers.wazuh-https.rule=Host(`wazuh.ml46.fr`)"
+      - "traefik.http.routers.wazuh-https.entrypoints=https"
+      - "traefik.http.routers.wazuh-https.tls=true"
+      - "traefik.http.routers.wazuh-https.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.wazuh-https.service=wazuh-dashboard-service"
+
+      - "traefik.http.services.wazuh-dashboard-service.loadbalancer.server.port=5601"
+      - "traefik.http.services.wazuh-dashboard-service.loadbalancer.server.scheme=http"
+
     environment:
       - INDEXER_USERNAME=admin
       - INDEXER_PASSWORD=SecretPassword
