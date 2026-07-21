@@ -109,6 +109,9 @@ services:
       - wazuh-indexer:wazuh.indexer
       - wazuh-manager:wazuh.manager
 
+    labels:
+      - "traefik.docker.network=a5xzv0zwmdfhdw0k4ivz88c0"
+
 volumes:
   wazuh_api_configuration:
   wazuh_etc:
