@@ -123,6 +123,20 @@ services:
     depends_on:
       - wazuh-dashboard
 
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=coolify
+
+    networks:
+      - default
+      - coolify
+
+networks:
+  default:
+  coolify:
+    external: true
+    name: coolify
+
 volumes:
   wazuh_api_configuration:
   wazuh_etc:
