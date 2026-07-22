@@ -124,8 +124,16 @@ services:
       - wazuh-dashboard
 
     labels:
-      - traefik.enable=true
-      - traefik.docker.network=coolify
+      - "traefik.enable=true"
+      - "traefik.docker.network=coolify"
+
+      - "traefik.http.routers.wazuh-ml46-http.rule=Host(`wazuh.ml46.fr`)"
+      - "traefik.http.routers.wazuh-ml46-http.entrypoints=http"
+      - "traefik.http.routers.wazuh-ml46-http.priority=100"
+      - "traefik.http.routers.wazuh-ml46-http.service=wazuh-ml46-web"
+
+      - "traefik.http.services.wazuh-ml46-web.loadbalancer.server.port=80"
+      - "traefik.http.services.wazuh-ml46-web.loadbalancer.passhostheader=true"
 
     networks:
       - default
